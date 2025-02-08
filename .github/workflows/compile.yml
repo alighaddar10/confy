@@ -1,0 +1,60 @@
+name: Build and Cross-Compile
+
+on:
+  push:
+    tags:
+      - 'v0.1.0'
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  # 1) Build for Linux & Windows on an Ubuntu runner
+  build-linux-windows:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: 
+          - x86_64-unknown-linux-gnu       # x86_64 Linux
+          - aarch64-unknown-linux-gnu    # ARM Linux (e.g., Raspberry Pi)
+          - x86_64-pc-windows-gnu          # Windows (GNU toolchain)
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Cross
+        run: cargo install cross --git https://github.com/cross-rs/cross
+
+      # Build with Cross
+      - name: Cross build
+        run: cross build --release --target ${{ matrix.target }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.target }}-release
+          path: target/${{ matrix.target }}/release/your-binary-name
+
+  # 2) Build for macOS (x86_64 & ARM) on a macOS runner
+  build-macos:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - x86_64-apple-darwin
+          - aarch64-apple-darwin
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Cross
+        run: cargo install cross --git https://github.com/cross-rs/cross
+
+      - name: Cross build
+        run: cross build --release --target ${{ matrix.target }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.target }}-release
+          path: target/${{ matrix.target }}/release/your-binary-name
