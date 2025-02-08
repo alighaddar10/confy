@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.target }}-release
-          path: target/${{ matrix.target }}/release/your-binary-name
+          path: target/${{ matrix.target }}/release/confy
 
   # 2) Build for macOS (x86_64 & ARM) on a macOS runner
   build-macos:
@@ -57,4 +57,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.target }}-release
-          path: target/${{ matrix.target }}/release/your-binary-name
+          path: target/${{ matrix.target }}/release/confy
