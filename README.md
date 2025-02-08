@@ -1,4 +1,4 @@
-# Smart Config Manager
+# Confy: The Smart Config Manager
 
 A Rust-based CLI to **merge** environment-specific configurations with a base config and **compare** final configs across environments. Ideal for teams wanting a single source of truth for app settings, quick environment diffs, and a self-contained binary with minimal dependencies.
 
