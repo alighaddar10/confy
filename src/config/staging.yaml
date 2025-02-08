@@ -1,0 +1,6 @@
+# Overrides for staging
+logging:
+  format: json
+
+service:
+  name: MyApp-Staging

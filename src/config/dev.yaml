@@ -1,0 +1,7 @@
+# Overrides for the development environment
+logging:
+  level: debug
+
+# Use a local DB host for development
+database:
+  host: localhost

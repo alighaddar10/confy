@@ -1,0 +1,9 @@
+# Overrides for production
+service:
+  port: 80
+  name: MyApp-Production
+
+database:
+  host: db.prod
+  user: admin
+  password: supersecret
