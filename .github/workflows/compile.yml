@@ -3,7 +3,7 @@ name: Build and Cross-Compile
 on:
   push:
     tags:
-      - 'v0.1.0'
+      - 'v0.2.2'
     branches:
       - main
   pull_request:
