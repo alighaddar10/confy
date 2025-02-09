@@ -120,7 +120,7 @@ database:
 Run `confy --help` (or `./confy` if you built locally) to see all commands and options:
 
 ```
-confy 0.2.0
+confy 0.2.2
 A CLI to manage environment configs
 
 USAGE:

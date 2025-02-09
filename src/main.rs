@@ -4,7 +4,7 @@ mod commands;
 
 #[derive(Parser)]
 #[command(name = "confy")]
-#[command(version = "0.2.0", about = "A CLI to manage environment configurations")]
+#[command(version = "0.2.2", about = "A CLI to manage environment configurations")]
 struct Cli {
     #[command(subcommand)]
     command: Commands,
