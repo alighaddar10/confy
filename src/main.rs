@@ -23,6 +23,9 @@ enum Commands {
         /// Path to the configs directory
         #[arg(short = 'p', long, default_value = "config")]
         config_path: String,
+        /// Validate the final configuration against a JSON schema
+        #[arg(short = 'v', long)]
+        validate: Option<bool>,
     },
     /// Compare/diff two environment configurations
     Diff {
@@ -38,8 +41,8 @@ enum Commands {
 fn main() {
     let cli = Cli::parse();
     match cli.command {
-        Commands::Build { env, output, config_path } => {
-            commands::build::handle_build(env, output, config_path);
+        Commands::Build { env, output, config_path, validate } => {
+            commands::build::handle_build(env, output, config_path, validate);
         }
         Commands::Diff { env1, env2, config_path } => {
             commands::diff::handle_diff(env1, env2, config_path);

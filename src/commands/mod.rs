@@ -4,3 +4,4 @@ pub mod build_final_config;
 pub mod parse;
 pub mod deepmerge;
 pub mod replace_placeholders;
+pub mod validate_with_schema;
