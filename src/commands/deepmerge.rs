@@ -1,4 +1,4 @@
-use serde_yaml::{Value, Mapping};
+use serde_yaml::Value;
 
 pub fn deep_merge(base: Value, env: Value) -> Value {
     match (base, env) {
