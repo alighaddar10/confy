@@ -1,14 +1,16 @@
 use std::{fs, process, io::Write};
-use clap::Parser;
-use serde_yaml::Value;
 use crate::commands::build_final_config::build_final_config;
+use crate::commands::replace_placeholders::replace_placeholders;
 
  pub fn handle_build(env: String, output: Option<String>, config_path: String) {
     // 1. Build final merged config
-    let merged = build_final_config(&config_path, &env);
+    let merged_val = build_final_config(&config_path, &env);
 
-    // 2. Serialize to YAML
-    let merged_yaml = match serde_yaml::to_string(&merged) {
+    // 2. Replace placeholders
+    let replaced_val = replace_placeholders(merged_val);
+
+    // 3. Serialize to YAML
+    let merged_yaml = match serde_yaml::to_string(&replaced_val) {
         Ok(yaml) => yaml,
         Err(e) => {
             eprintln!("Failed to serialize merged YAML: {}", e);
@@ -16,7 +18,7 @@ use crate::commands::build_final_config::build_final_config;
         }
     };
 
-    // 3. Output to file or stdout
+    // 4. Output to file or stdout
     if let Some(out_path) = output {
         let mut file = match fs::File::create(&out_path) {
             Ok(f) => f,
