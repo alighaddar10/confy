@@ -36,25 +36,25 @@ jobs:
           path: target/${{ matrix.target }}/release/confy
 
   # 2) Build for macOS (x86_64 & ARM) on a macOS runner
-  build-macos:
-    runs-on: macos-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        target:
-          - x86_64-apple-darwin
-          - aarch64-apple-darwin
-    steps:
-      - uses: actions/checkout@v4
+  # build-macos:
+  #   runs-on: macos-latest
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       target:
+  #         - x86_64-apple-darwin
+  #         - aarch64-apple-darwin
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - name: Install Cross
-        run: cargo install cross --git https://github.com/cross-rs/cross
+  #     - name: Install Cross
+  #       run: cargo install cross --git https://github.com/cross-rs/cross
 
-      - name: Cross build
-        run: cross build --release --target ${{ matrix.target }}
+  #     - name: Cross build
+  #       run: cross build --release --target ${{ matrix.target }}
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.target }}-release
-          path: target/${{ matrix.target }}/release/confy
+  #     - name: Upload artifact
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: ${{ matrix.target }}-release
+  #         path: target/${{ matrix.target }}/release/confy
