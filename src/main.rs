@@ -3,8 +3,8 @@ use clap::{Parser, Subcommand};
 mod commands;
 
 #[derive(Parser)]
-#[command(name = "smartconfig")]
-#[command(version = "0.1.0", about = "A CLI to manage environment configurations")]
+#[command(name = "confy")]
+#[command(version = "0.2.0", about = "A CLI to manage environment configurations")]
 struct Cli {
     #[command(subcommand)]
     command: Commands,

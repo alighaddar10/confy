@@ -7,8 +7,9 @@ A Rust-based CLI to **merge** environment-specific configurations with a base co
 - **Dynamic Merging**: Combine `base.yaml` with an environment-specific YAML (`dev.yaml`, `staging.yaml`, etc.)—no typed structs required.
 - **Line-by-Line Diffs**: Compare two merged environments (`dev` vs `staging`, etc.) in a human-readable format.
 - **Flexible Config Paths**: Store your YAML configs anywhere and specify the directory via `--config-path`.
+- **Environment Variables and Files**: Read from environment variables using `{{env:...}}` or from yaml file using `{{file:...}}`
+- **Validate against schema**: Validate against a predefined JSON schema using `-v` or `--validate` that auto-converts yaml to json. The schema file is to be placed under the same config-path and named `schema.json`.
 - **Single Binary**: Compiles to a single executable (no extra runtime needed).
-- **Extensible**: Add placeholders, schema validation, or any other custom logic as needed.
 
 ## Table of Contents
 
@@ -42,8 +43,8 @@ _(If you distribute prebuilt binaries, end users won’t need Rust/Cargo.)_
 
 1. **Clone** the repository:
    ```bash
-   git clone https://github.com/your-username/smart-config-manager.git
-   cd smart-config-manager
+   git clone https://github.com/alighaddar10/confy.git
+   cd confy
    ```
 2. **Build** the release binary:
    ```bash
@@ -51,15 +52,15 @@ _(If you distribute prebuilt binaries, end users won’t need Rust/Cargo.)_
    ```
 3. **Run** the tool (on Unix-like systems):
    ```bash
-   ./target/release/smartconfig --help
+   ./target/release/confy --help
    ```
 
-### Via Cargo
+### Via Cargo (Not Available Yet)
 
 If you publish this tool to [crates.io](https://crates.io/):
 
 ```bash
-cargo install smart-config-manager
+cargo install confy
 ```
 
 Then run:
@@ -68,8 +69,6 @@ Then run:
 smart-config --help
 ```
 
-_(Adjust the crate name if you publish it under something else.)_
-
 ---
 
 ## Configuration Structure
@@ -77,7 +76,7 @@ _(Adjust the crate name if you publish it under something else.)_
 By default, the CLI looks in a directory called `config/` for your YAML files:
 
 ```
-smart-config-manager/
+confy/
 ├─ config/
 │  ├─ base.yaml
 │  ├─ dev.yaml
@@ -118,14 +117,14 @@ database:
 
 ## Usage
 
-Run `smartconfig --help` (or `./smartconfig` if you built locally) to see all commands and options:
+Run `confy --help` (or `./confy` if you built locally) to see all commands and options:
 
 ```
-smartconfig 0.1.0
+confy 0.2.0
 A CLI to manage environment configs
 
 USAGE:
-    smartconfig <COMMAND>
+    confy <COMMAND>
 
 COMMANDS:
     build    Merge base + environment override
@@ -150,7 +149,7 @@ COMMANDS:
 1. **Build** for `dev` environment, print to stdout:
 
    ```bash
-   smartconfig build --env dev
+   confy build --env dev
    ```
 
    This will look for `config/base.yaml` + `config/dev.yaml` and print the merged YAML to stdout.
@@ -158,13 +157,13 @@ COMMANDS:
 2. **Build** for `staging` and output to file:
 
    ```bash
-   smartconfig build --env staging --output staging.final.yaml
+   confy build --env staging --output staging.final.yaml
    ```
 
 3. **Diff** `dev` vs `staging`:
 
    ```bash
-   smartconfig diff --env1 dev --env2 staging
+   confy diff --env1 dev --env2 staging
    ```
 
    Displays color-coded differences between the final dev and staging configs.
@@ -172,7 +171,7 @@ COMMANDS:
 4. **Specify a custom config path**:
 
    ```bash
-   smartconfig build --env prod --config-path ./my_configs
+   confy build --env prod --config-path ./my_configs
    ```
 
    Looks for `./my_configs/base.yaml` and `./my_configs/prod.yaml`.
@@ -181,8 +180,6 @@ COMMANDS:
 
 ## Roadmap / Future Features
 
-- **Placeholder Replacement**: e.g., `{{env:MY_SECRET}}` -> `$MY_SECRET` at runtime.
-- **Schema Validation**: Validate merged configs with JSON Schema to catch missing or invalid fields.
 - **Structured Diffs**: Compare YAML trees to highlight changed keys/values rather than raw text lines.
 - **Plugin Architecture**: Allow custom merge strategies or transformations.
 
@@ -199,7 +196,7 @@ COMMANDS:
    ```
 4. **Open a Pull Request** in the original repo, describing your changes.
 
-Please also check out the [issues](https://github.com/your-username/smart-config-manager/issues) for open tasks or bugs. We welcome contributions of all kinds, from code to documentation improvements!
+Please also check out the [issues](https://github.com/alighaddar10/confy/issues) for open tasks or bugs. We welcome contributions of all kinds, from code to documentation improvements!
 
 ---
 
@@ -210,4 +207,4 @@ This project is licensed under the [MIT License](LICENSE). You’re free to use,
 ---
 
 **Happy Configuring!**  
-If you have questions or suggestions, feel free to file an [issue](https://github.com/your-username/smart-config-manager/issues) or open a PR. We’d love to hear your feedback and contributions!
+If you have questions or suggestions, feel free to file an [issue](https://github.com/alighaddar10/confy/issues) or open a PR. We’d love to hear your feedback and contributions!
